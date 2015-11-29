@@ -30,7 +30,10 @@ export default class App extends Component {
 	}
 
 	handleRoute({ url }) {
-		let nowShowing = url.substring(1) || ALL_TODOS;
+		let nowShowing = url.replace(/\/$/,'').split('/').pop();
+		if (!FILTERS[nowShowing]) {
+			nowShowing = ALL_TODOS;
+		}
 		this.setState({ nowShowing });
 	}
 
