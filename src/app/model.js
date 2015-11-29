@@ -1,4 +1,4 @@
-import { uuid, store, extend } from './util';
+import { uuid, store } from './util';
 
 export default class TodoModel {
 	constructor(key) {
@@ -27,14 +27,14 @@ export default class TodoModel {
 
 	toggleAll(completed) {
 		this.todos = this.todos.map(
-			todo => extend({}, todo, { completed })
+			todo => ({ ...todo, completed })
 		);
 		this.inform();
 	}
 
 	toggle(todoToToggle) {
 		this.todos = this.todos.map( todo => (
-			todo !== todoToToggle ? todo : extend({}, todo, {completed: !todo.completed})
+			todo !== todoToToggle ? todo : ({ ...todo, completed: !todo.completed })
 		) );
 		this.inform();
 	}
@@ -46,7 +46,7 @@ export default class TodoModel {
 
 	save(todoToSave, title) {
 		this.todos = this.todos.map( todo => (
-			todo !== todoToSave ? todo : extend({}, todo, { title })
+			todo !== todoToSave ? todo : ({ ...todo, title })
 		));
 		this.inform();
 	}

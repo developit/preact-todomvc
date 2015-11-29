@@ -22,16 +22,3 @@ export function store(namespace, data) {
 	let store = localStorage.getItem(namespace);
 	return (store && JSON.parse(store)) || [];
 }
-
-export function extend() {
-	let newObj = {};
-	for (let i=0; i<arguments.length; i++) {
-		var obj = arguments[i];
-		for (let key in obj) {
-			if (obj.hasOwnProperty(key)) {
-				newObj[key] = obj[key];
-			}
-		}
-	}
-	return newObj;
-}
