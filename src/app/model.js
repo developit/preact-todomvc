@@ -3,7 +3,7 @@ import { uuid, store } from './util';
 export default class TodoModel {
 	constructor(key) {
 		this.key = key;
-		this.todos = store(key);
+		this.todos = store(key) || [];
 		this.onChanges = [];
 	}
 
