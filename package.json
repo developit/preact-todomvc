@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "autobind-decorator": "^1.3.2",
-    "preact": "^2.3.0",
-    "preact-router": "^1.0.0",
+    "preact": "^2.7.3",
+    "preact-router": "^1.1.0",
     "todomvc-app-css": "^2.0.3",
     "todomvc-common": "^1.0.2"
   }
