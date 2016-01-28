@@ -1,6 +1,6 @@
 # Preact TodoMVC
 
-[**Demo**](http://developit.github.io/preact-todomvc/)
+[**Demo**](https://preact-todomvc.surge.sh)
 
 TodoMVC done in [Preact]. The app is 7kb of minified + gzipped JavaScript.
 
