@@ -1,6 +1,6 @@
 import { h, render, Component } from 'preact';
 import { Router } from 'preact-router';
-import bind from 'autobind-decorator';
+import { bind } from 'decko';
 import TodoModel from './model';
 import TodoFooter from './footer';
 import TodoItem from './item';
@@ -17,18 +17,16 @@ const FILTERS = {
 	[COMPLETED_TODOS]: todo => todo.completed
 };
 
-@bind
 export default class App extends Component {
+	state = { nowShowing: ALL_TODOS };
+
 	constructor() {
 		super();
 		this.model = new TodoModel('preact-todos');
 		this.model.subscribe( () => this.setState({}) );
 	}
 
-	getInitialState() {
-		return { nowShowing: ALL_TODOS };
-	}
-
+	@bind
 	handleRoute({ url }) {
 		let nowShowing = url.replace(/\/$/,'').split('/').pop();
 		if (!FILTERS[nowShowing]) {
@@ -37,6 +35,7 @@ export default class App extends Component {
 		this.setState({ nowShowing });
 	}
 
+	@bind
 	handleNewTodoKeyDown(e) {
 		if (e.keyCode!==ENTER_KEY) return;
 		e.preventDefault();
@@ -48,32 +47,39 @@ export default class App extends Component {
 		}
 	}
 
+	@bind
 	toggleAll(event) {
 		let checked = event.target.checked;
 		this.model.toggleAll(checked);
 	}
 
+	@bind
 	toggle(todoToToggle) {
 		this.model.toggle(todoToToggle);
 	}
 
+	@bind
 	destroy(todo) {
 		this.model.destroy(todo);
 	}
 
+	@bind
 	edit(todo) {
 		this.setState({ editing: todo.id });
 	}
 
+	@bind
 	save(todoToSave, text) {
 		this.model.save(todoToSave, text);
 		this.setState({ editing: null });
 	}
 
+	@bind
 	cancel() {
 		this.setState({ editing: null });
 	}
 
+	@bind
 	clearCompleted() {
 		this.model.clearCompleted();
 	}

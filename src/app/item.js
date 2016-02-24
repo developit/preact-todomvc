@@ -1,11 +1,11 @@
 import { h, Component } from 'preact';
-import bind from 'autobind-decorator';
+import { bind } from 'decko';
 
 const ESCAPE_KEY = 27;
 const ENTER_KEY = 13;
 
-@bind
 export default class TodoItem extends Component {
+	@bind
 	handleSubmit() {
 		let val = this.state.editText.trim();
 		if (val) {
@@ -17,16 +17,19 @@ export default class TodoItem extends Component {
 		}
 	}
 
+	@bind
 	handleEdit() {
 		this.props.onEdit();
 		this.setState({ editText: this.props.todo.title });
 	}
 
+	@bind
 	toggle(e) {
 		this.props.onToggle();
 		e.preventDefault();
 	}
 
+	@bind
 	handleKeyDown(e) {
 		if (e.which===ESCAPE_KEY) {
 			this.setState({ editText: this.props.todo.title });

@@ -1,7 +1,7 @@
 {
-  "loose": "all",
-  "stage": 0,
-  "jsxPragma": "h",
-  "sourceMaps": true,
-  "nonStandard": true
+  "presets": ["es2015-loose", "stage-0"],
+  "plugins": [
+    ["transform-react-jsx", { "pragma":"h" }],
+    "transform-decorators-legacy"
+  ]
 }
