@@ -1,8 +1,15 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import ReplacePlugin from 'replace-bundle-webpack-plugin';
 
 module.exports = {
-	entry: './src/index.js',
-	output: { path:'./build', filename:'index.js' },
+	entry: {
+		app: './src/index.js',
+		'todomvc-common': 'todomvc-common'
+	},
+	output: {
+		path: './build',
+		filename: '[name].js'
+	},
 	module: {
 		loaders: [
 			{
@@ -18,6 +25,11 @@ module.exports = {
 	},
 	plugins: [
 		new ExtractTextPlugin('style.css', { allChunks: true }),
+		new ReplacePlugin([{
+			// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
+			partten: /throw\s+(new\s+)?[a-zA-Z]+Error\s*\(/g,
+			replacement: () => 'return;('
+		}])
 	],
 	devtool: 'source-map',
 	devServer: {

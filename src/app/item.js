@@ -1,44 +1,47 @@
 import { h, Component } from 'preact';
-import { bind } from 'decko';
 
 const ESCAPE_KEY = 27;
 const ENTER_KEY = 13;
 
 export default class TodoItem extends Component {
-	@bind
-	handleSubmit() {
-		let val = this.state.editText.trim();
+	handleSubmit = () => {
+		let { onSave, onDestroy, todo } = this.props,
+			val = this.state.editText.trim();
 		if (val) {
-			this.props.onSave(val);
+			onSave(todo, val);
 			this.setState({ editText: val });
 		}
 		else {
-			this.props.onDestroy();
+			onDestroy(todo);
 		}
-	}
+	};
 
-	@bind
-	handleEdit() {
-		this.props.onEdit();
-		this.setState({ editText: this.props.todo.title });
-	}
+	handleEdit = () => {
+		let { onEdit, todo } = this.props;
+		onEdit(todo);
+		this.setState({ editText: todo.title });
+	};
 
-	@bind
-	toggle(e) {
-		this.props.onToggle();
+	toggle = e => {
+		let { onToggle, todo } = this.props;
+		onToggle(todo);
 		e.preventDefault();
-	}
+	};
 
-	@bind
-	handleKeyDown(e) {
+	handleKeyDown = e => {
 		if (e.which===ESCAPE_KEY) {
-			this.setState({ editText: this.props.todo.title });
-			this.props.onCancel(e);
+			let { todo } = this.props;
+			this.setState({ editText: todo.title });
+			this.props.onCancel(todo);
 		}
 		else if (e.which===ENTER_KEY) {
-			this.handleSubmit(e);
+			this.handleSubmit();
 		}
-	}
+	};
+	
+	handleDestroy = () => {
+		this.props.onDestroy(this.props.todo);
+	};
 
 	// shouldComponentUpdate({ todo, editing, editText }) {
 	// 	return (
@@ -48,7 +51,7 @@ export default class TodoItem extends Component {
 	// 	);
 	// }
 
-	componentDidUpdate({ editing }) {
+	componentDidUpdate() {
 		let node = this.base && this.base.querySelector('.edit');
 		if (node) node.focus();
 	}
@@ -60,19 +63,21 @@ export default class TodoItem extends Component {
 					<input
 						class="toggle"
 						type="checkbox"
-						checked={completed || 0}
-						onClick={this.toggle}
+						checked={completed}
+						onChange={this.toggle}
 					/>
 					<label onDblClick={this.handleEdit}>{title}</label>
-					<button class="destroy" onClick={onDestroy} />
+					<button class="destroy" onClick={this.handleDestroy} />
 				</div>
-				<input
-					class="edit"
-					value={editing && editText || title}
-					onBlur={this.handleSubmit}
-					onChange={this.linkState('editText')}
-					onKeyDown={this.handleKeyDown}
-				/>
+				{ editing && (
+					<input
+						class="edit"
+						value={editText}
+						onBlur={this.handleSubmit}
+						onInput={this.linkState('editText')}
+						onKeyDown={this.handleKeyDown}
+					/>
+				) }
 			</li>
 		);
 	}

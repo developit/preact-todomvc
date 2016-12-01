@@ -1,14 +1,10 @@
 import { uuid, store } from './util';
 
 export default class TodoModel {
-	constructor(key) {
+	constructor(key, sub) {
 		this.key = key;
 		this.todos = store(key) || [];
-		this.onChanges = [];
-	}
-
-	subscribe(fn) {
-		this.onChanges.push(fn);
+		this.onChanges = [sub];
 	}
 
 	inform() {

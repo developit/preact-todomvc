@@ -1,42 +1,33 @@
-import { h, render, Component } from 'preact';
-import { Router } from 'preact-router';
-import { bind } from 'decko';
+import { h, Component } from 'preact';
 import TodoModel from './model';
 import TodoFooter from './footer';
 import TodoItem from './item';
 
 const ENTER_KEY = 13;
 
-const ALL_TODOS = 'all';
-const ACTIVE_TODOS = 'active';
-const COMPLETED_TODOS = 'completed';
-
 const FILTERS = {
-	[ALL_TODOS]: todo => true,
-	[ACTIVE_TODOS]: todo => !todo.completed,
-	[COMPLETED_TODOS]: todo => todo.completed
+	all: todo => true,
+	active: todo => !todo.completed,
+	completed: todo => todo.completed
 };
 
 export default class App extends Component {
-	state = { nowShowing: ALL_TODOS };
-
 	constructor() {
 		super();
-		this.model = new TodoModel('preact-todos');
-		this.model.subscribe( () => this.setState({}) );
+		this.model = new TodoModel('preact-todos', () => this.setState({}) );
+		addEventListener('hashchange', this.handleRoute.bind(this));
+		this.handleRoute();
 	}
 
-	@bind
-	handleRoute({ url }) {
-		let nowShowing = url.replace(/\/$/,'').split('/').pop();
+	handleRoute() {
+		let nowShowing = String(location.hash||'').split('/').pop();
 		if (!FILTERS[nowShowing]) {
-			nowShowing = ALL_TODOS;
+			nowShowing = 'all';
 		}
 		this.setState({ nowShowing });
 	}
 
-	@bind
-	handleNewTodoKeyDown(e) {
+	handleNewTodoKeyDown = e => {
 		if (e.keyCode!==ENTER_KEY) return;
 		e.preventDefault();
 
@@ -45,44 +36,37 @@ export default class App extends Component {
 			this.model.addTodo(val);
 			this.setState({ newTodo: '' });
 		}
-	}
+	};
 
-	@bind
-	toggleAll(event) {
+	toggleAll = event => {
 		let checked = event.target.checked;
 		this.model.toggleAll(checked);
-	}
+	};
 
-	@bind
-	toggle(todoToToggle) {
-		this.model.toggle(todoToToggle);
-	}
+	toggle = todo => {
+		this.model.toggle(todo);
+	};
 
-	@bind
-	destroy(todo) {
+	destroy = todo => {
 		this.model.destroy(todo);
-	}
+	};
 
-	@bind
-	edit(todo) {
+	edit = todo => {
 		this.setState({ editing: todo.id });
-	}
+	};
 
-	@bind
-	save(todoToSave, text) {
+	save = (todoToSave, text) => {
 		this.model.save(todoToSave, text);
 		this.setState({ editing: null });
-	}
+	};
 
-	@bind
-	cancel() {
+	cancel = () => {
 		this.setState({ editing: null });
-	}
+	};
 
-	@bind
-	clearCompleted() {
+	clearCompleted = () => {
 		this.model.clearCompleted();
-	}
+	};
 
 	render({ }, { nowShowing=ALL_TODOS, newTodo, editing }) {
 		let { todos } = this.model,
@@ -92,8 +76,6 @@ export default class App extends Component {
 
 		return (
 			<div>
-				<Router onChange={this.handleRoute}><Noop path="/" /></Router>
-
 				<header class="header">
 					<h1>todos</h1>
 					<input
@@ -118,11 +100,11 @@ export default class App extends Component {
 							{ shownTodos.map( todo => (
 								<TodoItem
 									todo={todo}
-									onToggle={this.toggle.bind(this, todo)}
-									onDestroy={this.destroy.bind(this, todo)}
-									onEdit={this.edit.bind(this, todo)}
+									onToggle={this.toggle}
+									onDestroy={this.destroy}
+									onEdit={this.edit}
 									editing={editing === todo.id}
-									onSave={this.save.bind(this, todo)}
+									onSave={this.save}
 									onCancel={this.cancel}
 								/>
 							)) }
@@ -140,13 +122,5 @@ export default class App extends Component {
 				) : null }
 			</div>
 		);
-	}
-}
-
-
-// just a fake component we can feed to router. yay.
-class Noop extends Component {
-	render() {
-		return null;
 	}
 }
