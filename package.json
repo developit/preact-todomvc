@@ -4,7 +4,7 @@
   "description": "TodoMVC done in Preact",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --content-base build",
     "start": "http-server build -p ${PORT:-8080}",
     "prestart": "npm run build",
     "build": "npm run -s build:rollup",
