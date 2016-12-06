@@ -16,12 +16,11 @@ export default {
 				'stage-0'
 			],
 			plugins: [
+				'external-helpers',
 				['transform-react-jsx', { pragma:'h' }]
 			]
 		}),
-		nodeResolve({
-			jsnext: true
-		}),
+		nodeResolve({ jsnext:true }),
 		commonjs()
 	]
 };
