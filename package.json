@@ -5,10 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "fly watch",
-    "prestart": "npm run build",
-    "start": "fly server",
     "build": "fly build",
-    "postbuild": "uglifyjs build/app.js --pure-funcs classCallCheck Object.defineProperty Object.freeze invariant warning -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code -m -o build/app.js -p relative --in-source-map build/app.js.map --source-map build/app.js.map",
+    "start": "fly build server",
     "deploy": "gh-pages -d build"
   },
   "keywords": [
@@ -31,6 +29,7 @@
     "css-loader": "^0.26.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "fly": "beta",
+    "fly-shell": "^2.0.1",
     "gh-pages": "^0.12.0",
     "http-server": "^0.9.0",
     "mkdirp": "^0.5.1",

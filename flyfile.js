@@ -18,6 +18,7 @@ exports.copies = function * () {
 
 exports.build = function * () {
 	yield this.serial(['clean', 'copies', 'scripts']);
+	yield this.source(`${out}/app.js`).shell('uglifyjs $file --pure-funcs classCallCheck Object.defineProperty Object.freeze invariant warning -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code -m -o $file -p relative --in-source-map $file.map --source-map $file.map');
 }
 
 var bun;
