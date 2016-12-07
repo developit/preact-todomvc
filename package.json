@@ -4,12 +4,10 @@
   "description": "TodoMVC done in Preact",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run start",
-    "start": "browser-sync start -s 'build' -f 'build' --port ${PORT:-8080}",
-    "prebuild": "rm -rf build && mkdirp build/todomvc-common && ncp src/index.html build/index.html && cp node_modules/todomvc-common/base.* build/todomvc-common/ && cp node_modules/todomvc-app-css/index.css build/todomvc.css",
+    "dev": "fly watch",
     "prestart": "npm run build",
-    "build": "rollup -c rollup.config.js",
-    "build:webpack": "mkdirp build && ncp src/index.html build/index.html && webpack -p",
+    "start": "fly server",
+    "build": "fly build",
     "postbuild": "uglifyjs build/app.js --pure-funcs classCallCheck Object.defineProperty Object.freeze invariant warning -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code -m -o build/app.js -p relative --in-source-map build/app.js.map --source-map build/app.js.map",
     "deploy": "gh-pages -d build"
   },
@@ -32,6 +30,7 @@
     "browser-sync": "^2.18.2",
     "css-loader": "^0.26.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "fly": "beta",
     "gh-pages": "^0.12.0",
     "http-server": "^0.9.0",
     "mkdirp": "^0.5.1",
