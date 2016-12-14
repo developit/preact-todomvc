@@ -34,7 +34,7 @@
     "uglify-js": "^2.7.5"
   },
   "dependencies": {
-    "preact": "^7.0.3",
+    "preact": "^7.1.0",
     "preact-router": "^2.3.2",
     "todomvc-app-css": "^2.0.3",
     "todomvc-common": "^1.0.2"

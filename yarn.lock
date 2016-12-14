@@ -2331,7 +2331,7 @@ preact-router@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/preact-router/-/preact-router-2.3.2.tgz#4a6db9ceb0bd29e3eb5ad27b4646e7c7e1d3e68f"
 
-preact@^7.0.3:
+preact@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/preact/-/preact-7.1.0.tgz#119cf65963abff28038b2330601adde969990a8d"
 
