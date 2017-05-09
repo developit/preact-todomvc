@@ -1,5 +1,7 @@
 # Preact TodoMVC
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/developit/preact-todomvc.svg)](https://greenkeeper.io/)
+
 [**Demo**](https://preact-todomvc.surge.sh)
 
 TodoMVC done in [Preact]. The app is 6kb of minified + gzipped JavaScript.
