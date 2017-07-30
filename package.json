@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --content-base build",
-    "start": "http-server build -p ${PORT:-8080}",
+    "start": "http-server build --gzip -p ${PORT:-8080}",
     "prestart": "npm run build",
     "build": "npm run -s build:rollup",
     "build:webpack": "mkdirp build && ncp src/index.html build/index.html && webpack -p",
     "build:rollup": "rm -rf build && mkdirp build/todomvc-common && ncp src/index.html build/index.html && rollup -c rollup.config.js && cp node_modules/todomvc-common/base.* build/todomvc-common/ && cp node_modules/todomvc-app-css/index.css build/todomvc.css",
-    "postbuild": "uglifyjs build/app.js --pure-funcs classCallCheck Object.defineProperty Object.freeze invariant warning -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code -m -o build/app.js -p relative --in-source-map build/app.js.map --source-map build/app.js.map",
+    "postbuild": "uglifyjs build/app.js --pure-funcs classCallCheck Object.defineProperty Object.freeze invariant warning -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code -m -o build/app.js -p relative --in-source-map build/app.js.map --source-map build/app.js.map && gzip --force --keep build/app.js",
     "deploy": "gh-pages -d build"
   },
   "keywords": [
@@ -32,7 +32,7 @@
     "css-loader": "^0.26.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "gh-pages": "^0.12.0",
-    "http-server": "^0.9.0",
+    "http-server": "^0.10.0",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
     "replace-bundle-webpack-plugin": "^1.0.0",
