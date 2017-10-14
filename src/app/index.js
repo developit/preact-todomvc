@@ -91,11 +91,13 @@ export default class App extends Component {
 				{ todos.length ? (
 					<section class="main">
 						<input
+							id="toggle-all"
 							class="toggle-all"
 							type="checkbox"
 							onChange={this.toggleAll}
 							checked={activeTodoCount === 0}
 						/>
+						<label for="toggle-all">Mark all as complete</label>
 						<ul class="todo-list">
 							{ shownTodos.map( todo => (
 								<TodoItem
