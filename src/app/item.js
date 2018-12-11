@@ -28,6 +28,10 @@ export default class TodoItem extends Component {
 		e.preventDefault();
 	};
 
+	handleTextInput = e => {
+		this.setState({ editText: e.target.value });
+	};
+
 	handleKeyDown = e => {
 		if (e.which===ESCAPE_KEY) {
 			let { todo } = this.props;
@@ -74,7 +78,7 @@ export default class TodoItem extends Component {
 						class="edit"
 						value={editText}
 						onBlur={this.handleSubmit}
-						onInput={this.linkState('editText')}
+						onInput={this.handleTextInput}
 						onKeyDown={this.handleKeyDown}
 					/>
 				) }

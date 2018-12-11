@@ -10,7 +10,6 @@
     "build": "npm run -s build:rollup",
     "build:webpack": "mkdirp build && ncp src/index.html build/index.html && webpack -p",
     "build:rollup": "rm -rf build && mkdirp build/todomvc-common && ncp src/index.html build/index.html && rollup -c rollup.config.js && cp node_modules/todomvc-common/base.* build/todomvc-common/ && cp node_modules/todomvc-app-css/index.css build/todomvc.css",
-    "postbuild": "uglifyjs build/app.js --pure-funcs classCallCheck Object.defineProperty Object.freeze invariant warning -c unsafe,collapse_vars,evaluate,screw_ie8,loops,keep_fargs=false,pure_getters,unused,dead_code -m -o build/app.js -p relative --in-source-map build/app.js.map --source-map build/app.js.map",
     "deploy": "gh-pages -d build"
   },
   "keywords": [
@@ -19,8 +18,12 @@
   "author": "Jason Miller <jason@developit.ca>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/plugin-transform-react-jsx": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
     "babel-core": "^6.5.2",
-    "babel-loader": "^6.2.3",
+    "babel-loader": "^8.0.4",
     "babel-plugin-external-helpers": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.5.2",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -36,17 +39,19 @@
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
     "replace-bundle-webpack-plugin": "^1.0.0",
-    "rollup": "^0.36.4",
-    "rollup-plugin-babel": "^2.6.1",
-    "rollup-plugin-commonjs": "^5.0.5",
-    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup": "^0.67.4",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-es3": "^1.1.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-terser": "^3.0.0",
     "style-loader": "^0.13.0",
     "uglify-js": "^2.7.5",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "preact": "^7.1.0",
+    "preact": "^8.4.2",
     "preact-router": "^2.3.2",
     "todomvc-app-css": "^2.0.3",
     "todomvc-common": "^1.0.2"
