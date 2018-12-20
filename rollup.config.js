@@ -22,6 +22,15 @@ export default {
 				// 'stage-0'
 			],
 			plugins: [
+				...(process.env.ENABLE_HTM ? [
+					['babel-plugin-jsx-pragmatic', {
+						module: require('path').resolve(__dirname, 'src/html'),
+						import: '_html'
+					}],
+					['babel-plugin-transform-jsx-to-tagged-templates', {
+						tag: '_html'
+					}]
+				] : []),
 				['@babel/plugin-proposal-class-properties', { loose: true }],
 				// 'external-helpers',
 				['@babel/plugin-transform-react-jsx', { pragma: 'h' }]
