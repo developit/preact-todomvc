@@ -53,7 +53,7 @@
   "dependencies": {
     "preact": "^8.4.2",
     "preact-router": "^2.3.2",
-    "todomvc-app-css": "^2.0.3",
+    "todomvc-app-css": "^2.1.0",
     "todomvc-common": "^1.0.2"
   }
 }
