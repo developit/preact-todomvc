@@ -4,11 +4,11 @@
   "description": "TodoMVC done in Preact",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --content-base build",
+    "dev": "npm run build:webpack && webpack-dev-server --content-base build",
     "start": "http-server build -p ${PORT:-8080}",
     "prestart": "npm run build",
     "build": "npm run -s build:rollup",
-    "build:webpack": "mkdirp build && ncp src/index.html build/index.html && webpack -p",
+    "build:webpack": "mkdirp build && ncp src/index.html build/index.html && cp node_modules/todomvc-app-css/index.css build/todomvc.css",
     "build:rollup": "rm -rf build && mkdirp build/todomvc-common && ncp src/index.html build/index.html && rollup -c rollup.config.js && cp node_modules/todomvc-common/base.* build/todomvc-common/ && cp node_modules/todomvc-app-css/index.css build/todomvc.css",
     "deploy": "gh-pages -d build"
   },
